@@ -14,9 +14,9 @@ int main() {
 		board.display();
 
 		if (board.nextTurn == Side::RED) {
-			cout << ANSI_RED << "\nred's turn: ";
+			cout << ANSI_RED << "\nRed's turn: ";
 		} else {
-			cout << ANSI_GREEN << "\ngreen's turn: ";
+			cout << ANSI_GREEN << "\nGreen's turn: ";
 		}
 
 		string instruction;

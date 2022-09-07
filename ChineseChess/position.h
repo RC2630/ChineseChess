@@ -1,6 +1,10 @@
 #ifndef POSITION_DOT_H
 #define POSITION_DOT_H
 
+#include <string>
+
+using namespace std;
+
 // represents a position on a chinese chess board
 struct Position {
 
@@ -21,6 +25,7 @@ struct Position {
 	bool isValid() const;
 	bool isEaten() const;
 	bool operator == (Position other) const;
+	string toString() const;
 
 };
 

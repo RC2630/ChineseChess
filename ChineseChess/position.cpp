@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <string>
 #include "position.h"
 
 using namespace std;
@@ -39,4 +40,8 @@ bool Position::isEaten() const {
 
 bool Position::operator == (Position other) const {
 	return this->row == other.row && this->col == other.col;
+}
+
+string Position::toString() const {
+	return "(" + to_string(this->col) + ", " + to_string(this->row) + ")";
 }

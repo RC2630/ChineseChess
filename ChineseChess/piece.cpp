@@ -10,6 +10,7 @@ Piece::Piece(Position pos, Side side, const string& name, wchar_t cNameRed, wcha
 
 void Piece::moveTo(Position newPos, const Board& board) {
 	if (this->canMoveTo(newPos, board)) {
+		cout << ANSI_CYAN << "\n" << this->toString() << " moved to " << newPos.toString() << ".\n" << ANSI_NORMAL;
 		this->pos = newPos;
 	} else {
 		throw invalid_argument("the new position is not valid for " + this->name);
@@ -18,6 +19,7 @@ void Piece::moveTo(Position newPos, const Board& board) {
 
 void Piece::eat(Piece& enemy, const Board& board) {
 	if (this->canEat(enemy, board)) {
+		cout << ANSI_CYAN << "\n" << this->toString() << " ate " << enemy.toString() << ".\n" << ANSI_NORMAL;
 		this->pos = enemy.pos;
 		enemy.pos.setToEaten();
 	} else {
@@ -46,6 +48,10 @@ void Piece::printChineseName() const {
 	// returns colour to default
 	cout << ANSI_NORMAL;
 
+}
+
+string Piece::toString() const {
+	return ((side == Side::RED) ? "Red" : "Green") + string(" ") + name + " @ " + pos.toString();
 }
 
 Car::Car(Position pos, Side side)

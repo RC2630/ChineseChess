@@ -28,6 +28,7 @@ struct Piece {
 	void eat(Piece& enemy, const Board& board);
 	wchar_t getChineseName() const;
 	void printChineseName() const;
+	string toString() const;
 
 	virtual bool canMoveTo(Position newPos, const Board& board) const = 0;
 	virtual bool canEat(const Piece& enemy, const Board& board) const = 0;
