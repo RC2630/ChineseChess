@@ -40,7 +40,7 @@ int main() {
 
 	board.display();
 
-	if (board.isGeneralAlive(Side::RED)) {
+	if (board.isGeneralAlive(Side::GREEN)) {
 		cout << ANSI_GREEN << "\nCongratulations! The GREEN side has won this game!\n" << ANSI_NORMAL;
 	} else {
 		cout << ANSI_RED << "\nCongratulations! The RED side has won this game!\n" << ANSI_NORMAL;
