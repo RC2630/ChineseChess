@@ -147,5 +147,16 @@ void Board::display() const {
 }
 
 void Board::move(Instruction inst) {
-	// TODO
+	int indexPiece = -2, indexTargetPiece = -2;
+	switch (inst.getType(*this, indexPiece, indexTargetPiece)) {
+		case InstructionType::INVALID: {
+			throw invalid_argument("instruction invalid");
+		break; } case InstructionType::MOVE: {
+			this->pieces.at(indexPiece)->moveTo(inst.to, *this);
+			this->nextTurn = (this->nextTurn == Side::RED) ? Side::GREEN : Side::RED;
+		break; } case InstructionType::EAT: {
+			this->pieces.at(indexPiece)->eat(*this->pieces.at(indexTargetPiece), *this);
+			this->nextTurn = (this->nextTurn == Side::RED) ? Side::GREEN : Side::RED;
+		}
+	}
 }
