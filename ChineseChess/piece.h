@@ -22,15 +22,15 @@ struct Piece {
 	wchar_t chineseNameGreen;
 	Side side;
 
-	virtual bool canMoveTo(Position newPos, const Board& board) const = 0;
-	virtual bool canEat(const Piece& enemy, const Board& board) const = 0;
-
 	Piece(Position pos, Side side, const string& name, wchar_t cNameRed, wchar_t cNameGreen);
 
 	void moveTo(Position newPos, const Board& board);
 	void eat(Piece& enemy, const Board& board);
 	wchar_t getChineseName() const;
 	void printChineseName() const;
+
+	virtual bool canMoveTo(Position newPos, const Board& board) const = 0;
+	virtual bool canEat(const Piece& enemy, const Board& board) const = 0;
 
 };
 
