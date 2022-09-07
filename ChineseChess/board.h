@@ -21,11 +21,13 @@ struct Board {
 	vector<unique_ptr<Piece>> pieces;
 
 	Board();
+	Board(const string& frame);
 
 	int getIndexOfPieceAtPos(Position pos) const; // returns -1 to signify empty pos
 	void display() const;
-	void move(Instruction inst);
+	string move(Instruction inst);
 	bool isGeneralAlive(Side side) const;
+	void printFrameToFile(const string& filename, bool overwrite) const;
 
 };
 

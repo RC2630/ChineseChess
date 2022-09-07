@@ -1,4 +1,6 @@
 #include "general/ansi_codes.h"
+#include "general/parseArguments.h"
+#include "general/file.h"
 #include "board.h"
 
 Board::Board() {
@@ -39,6 +41,40 @@ Board::Board() {
 	for (int i = 1; i <= Position::NUM_COLS; i += 2) {
 		pieces.push_back(make_unique<Footman>(Position(i, 4), Side::RED));
 		pieces.push_back(make_unique<Footman>(Position(i, 7), Side::GREEN));
+	}
+
+}
+
+Board::Board(const string& frame) {
+	
+	string nextTurnInfo = parse::getCommandName(frame, '|');
+	vector<string> piecesInfo = parse::parseAllArguments(frame, false, '|');
+
+	this->nextTurn = ((nextTurnInfo == "GREEN") ? Side::GREEN : Side::RED);
+
+	for (const string& pieceInfo : piecesInfo) {
+		
+		vector<string> parts = parse::parseAllArguments(pieceInfo);
+		Position pos(stoi(parts.at(2)), stoi(parts.at(3)));
+		Side side = ((parts.at(1) == "G") ? Side::GREEN : Side::RED);
+		string type = parts.at(0);
+
+		if (type == "Car") {
+			this->pieces.push_back(make_unique<Car>(pos, side));
+		} else if (type == "Horse") {
+			this->pieces.push_back(make_unique<Horse>(pos, side));
+		} else if (type == "Elephant") {
+			this->pieces.push_back(make_unique<Elephant>(pos, side));
+		} else if (type == "Guard") {
+			this->pieces.push_back(make_unique<Guard>(pos, side));
+		} else if (type == "General") {
+			this->pieces.push_back(make_unique<General>(pos, side));
+		} else if (type == "Cannon") {
+			this->pieces.push_back(make_unique<Cannon>(pos, side));
+		} else if (type == "Footman") {
+			this->pieces.push_back(make_unique<Footman>(pos, side));
+		}
+
 	}
 
 }
@@ -146,17 +182,19 @@ void Board::display() const {
 
 }
 
-void Board::move(Instruction inst) {
+string Board::move(Instruction inst) {
 	int indexPiece = -2, indexTargetPiece = -2;
 	switch (inst.getType(*this, indexPiece, indexTargetPiece)) {
 		case InstructionType::INVALID: {
 			throw invalid_argument("instruction invalid");
 		break; } case InstructionType::MOVE: {
-			this->pieces.at(indexPiece)->moveTo(inst.to, *this);
+			string moveLog = this->pieces.at(indexPiece)->moveTo(inst.to, *this);
 			this->nextTurn = (this->nextTurn == Side::RED) ? Side::GREEN : Side::RED;
+			return moveLog;
 		break; } case InstructionType::EAT: {
-			this->pieces.at(indexPiece)->eat(*this->pieces.at(indexTargetPiece), *this);
+			string eatLog = this->pieces.at(indexPiece)->eat(*this->pieces.at(indexTargetPiece), *this);
 			this->nextTurn = (this->nextTurn == Side::RED) ? Side::GREEN : Side::RED;
+			return eatLog;
 		}
 	}
 }
@@ -168,4 +206,24 @@ bool Board::isGeneralAlive(Side side) const {
 		}
 	}
 	throw runtime_error("this line should never be reached");
+}
+
+void Board::printFrameToFile(const string& filename, bool overwrite) const {
+
+	// writes out the side of the next turn
+	string frame = ((nextTurn == Side::GREEN) ? "GREEN" : "RED");
+
+	// writes out the piece information, one by one
+	for (int i = 0; i < pieces.size(); i++) {
+		Piece& piece = *pieces.at(i);
+		frame += "|" + piece.name + " " + ((piece.side == Side::GREEN) ? "G" : "R") + " " + to_string(piece.pos.col) + " " + to_string(piece.pos.row);
+	}
+
+	// writes out the frame to the file
+	if (overwrite) {
+		file::outputTo(frame, filename);
+	} else {
+		file::outputStrVecAddTo({frame}, filename);
+	}
+
 }

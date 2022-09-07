@@ -8,20 +8,22 @@ Piece::Piece(Position pos, Side side, const string& name, wchar_t cNameRed, wcha
 : pos(pos), name(name), chineseNameRed(cNameRed), chineseNameGreen(cNameGreen), side(side)
 { }
 
-void Piece::moveTo(Position newPos, const Board& board) {
+string Piece::moveTo(Position newPos, const Board& board) {
 	if (this->canMoveTo(newPos, board)) {
-		cout << ANSI_CYAN << "\n" << this->toString() << " moved to " << newPos.toString() << ".\n" << ANSI_NORMAL;
+		string moveLog = this->toString() + " moved to " + newPos.toString();
 		this->pos = newPos;
+		return moveLog;
 	} else {
 		throw invalid_argument("the new position is not valid for " + this->name);
 	}
 }
 
-void Piece::eat(Piece& enemy, const Board& board) {
+string Piece::eat(Piece& enemy, const Board& board) {
 	if (this->canEat(enemy, board)) {
-		cout << ANSI_CYAN << "\n" << this->toString() << " ate " << enemy.toString() << ".\n" << ANSI_NORMAL;
+		string eatLog = this->toString() + " ate " + enemy.toString();
 		this->pos = enemy.pos;
 		enemy.pos.setToEaten();
+		return eatLog;
 	} else {
 		throw invalid_argument(this->name + " cannot eat " + enemy.name + " in this configuration");
 	}

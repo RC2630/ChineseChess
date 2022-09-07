@@ -17,10 +17,13 @@ const string COMMAND_HELP =
 	"/eaten : inspect which pieces have been eaten so far in this match\n\n"
 	
 	"/save frame <file> : saves the current frame (state of the board) in a file, to be loaded later\n"
-	"/save match <file> : saves the entire progression of the match in a file, to be replayed later\n"
+	"/save match <label> : saves the entire progression of the match (all frames and all moves) in 2 files (\"<label>_frames.txt\" and \"<label>_moves.txt\"), to be replayed later\n"
 	"/load <file> : loads a frame from a file, so gameplay can continue from that frame\n"
-	"/replay <file> : loads an entire progression of a match from a file, so each step can be viewed\n"
+	"/replay <label> : loads an entire progression of a match from 2 files (\"<label>_frames.txt\" and \"<label>_moves.txt\"), so each step can be viewed\n"
 	"/undo : reverts to the previous frame\n";
+
+const string COM_CURR_MATCH_FRAMES = "curr/frames.txt";
+const string COM_CURR_MATCH_MOVES = "curr/moves.txt";
 
 // represents a special command instruction (ones starting with "/")
 struct Command {
