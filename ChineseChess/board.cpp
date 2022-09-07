@@ -160,3 +160,12 @@ void Board::move(Instruction inst) {
 		}
 	}
 }
+
+bool Board::isGeneralAlive(Side side) const {
+	for (int i = 0; i < pieces.size(); i++) {
+		if (pieces.at(i)->name == "General" && pieces.at(i)->side == side) {
+			return !pieces.at(i)->pos.isEaten();
+		}
+	}
+	throw runtime_error("this line should never be reached");
+}

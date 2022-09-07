@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="board.h" />
+    <ClInclude Include="command.h" />
     <ClInclude Include="general\abstractFunctions.h" />
     <ClInclude Include="general\ansi_codes.h" />
     <ClInclude Include="general\binaryUtility.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="board.cpp" />
+    <ClCompile Include="command.cpp" />
     <ClCompile Include="general\binaryUtility.cpp" />
     <ClCompile Include="general\customPrint.cpp" />
     <ClCompile Include="general\file.cpp" />

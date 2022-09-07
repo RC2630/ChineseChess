@@ -4,6 +4,12 @@
 #include "position.h"
 #include "board.h"
 
+// a custom exception representing an invalid instruction
+struct InvalidInstructionException : public exception {
+	InvalidInstructionException();
+	InvalidInstructionException(const string& message);
+};
+
 // represents a type of instruction (move, eat, invalid)
 enum struct InstructionType {
 	MOVE,
@@ -16,6 +22,8 @@ struct Instruction {
 
 	Position from;
 	Position to;
+
+	Instruction(const string& inst);
 
 	InstructionType getType(const Board& board, int& indexPiece, int& indexTargetPiece) const;
 

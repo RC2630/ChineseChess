@@ -6,6 +6,9 @@
 #include "piece.h"
 #include "instruction.h"
 
+// forward declaration for Instruction (definition in "instruction.h" and "instruction.cpp")
+struct Instruction;
+
 // represents a chinese chess board
 struct Board {
 
@@ -21,6 +24,7 @@ struct Board {
 	int getIndexOfPieceAtPos(Position pos) const; // returns -1 to signify empty pos
 	void display() const;
 	void move(Instruction inst);
+	bool isGeneralAlive(Side side) const;
 
 };
 
