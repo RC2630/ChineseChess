@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="board.h" />
     <ClInclude Include="general\abstractFunctions.h" />
     <ClInclude Include="general\ansi_codes.h" />
     <ClInclude Include="general\binaryUtility.h" />
@@ -153,8 +154,12 @@
     <ClInclude Include="general\statisticsUtility.h" />
     <ClInclude Include="general\stringUtility.h" />
     <ClInclude Include="general\vectorUtility.h" />
+    <ClInclude Include="instruction.h" />
+    <ClInclude Include="piece.h" />
+    <ClInclude Include="position.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="board.cpp" />
     <ClCompile Include="general\binaryUtility.cpp" />
     <ClCompile Include="general\customPrint.cpp" />
     <ClCompile Include="general\file.cpp" />
@@ -163,6 +168,9 @@
     <ClCompile Include="general\randomUtility.cpp" />
     <ClCompile Include="general\statisticsUtility.cpp" />
     <ClCompile Include="general\stringUtility.cpp" />
+    <ClCompile Include="instruction.cpp" />
+    <ClCompile Include="piece.cpp" />
+    <ClCompile Include="position.cpp" />
     <ClCompile Include="start.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
