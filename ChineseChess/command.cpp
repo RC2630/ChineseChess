@@ -25,7 +25,7 @@ void Command::execute(Board& board) const {
 	} else if (parse::commandIs(command, "/eaten")) {
 		eaten(board);
 	} else if (parse::commandIs(command, "/replay")) {
-		replay();
+		replay(board);
 	} else if (parse::commandIs(command, "/exit")) {
 		exit();
 	} else if (parse::commandIs(command, "/restart")) {
@@ -55,17 +55,45 @@ void Command::saveMatch() const {
 	file::inputStrVecFrom(moves, COM_CURR_MATCH_MOVES);
 	file::outputVecTo(moves, "saves/" + label + "_moves.txt");
 
-	cout << ANSI_BLUE << "\nMatch has been saved (frames in \"saves/" << label
+	cout << ANSI_CYAN << "\nMatch has been saved (frames in \"saves/" << label
 		 << "_frames.txt\" and moves in \"saves/" << label << "_moves.txt\").\n" << ANSI_NORMAL;
 
 }
 
 void Command::load(Board& board) const {
-	// TODO
+
+	string frame;
+	file::inputStrFrom(frame, "saves/" + parse::parseArgument(command));
+	board = Board(frame);
+
+	file::clearFile(COM_CURR_MATCH_FRAMES);
+	file::clearFile(COM_CURR_MATCH_MOVES);
+	board.printFrameToFile(COM_CURR_MATCH_FRAMES, false);
+
+	cout << ANSI_CYAN << "\nFrame loaded successfully.\n" << ANSI_NORMAL;
+
 }
 
 void Command::undo(Board& board) const {
-	// TODO
+	
+	vector<string> frames, moves;
+	file::inputStrVecFrom(frames, COM_CURR_MATCH_FRAMES);
+	file::inputStrVecFrom(moves, COM_CURR_MATCH_MOVES);
+
+	if (frames.size() == 1 && moves.empty()) {
+		cout << ANSI_MAGENTA << "\nSorry, but there are no previous frames. You cannot undo anything.\n" << ANSI_NORMAL;
+		return;
+	}
+
+	moves.pop_back();
+	frames.pop_back();
+
+	file::outputVecTo(moves, COM_CURR_MATCH_MOVES);
+	file::outputVecTo(frames, COM_CURR_MATCH_FRAMES);
+
+	board = Board(frames.back());
+	cout << ANSI_CYAN << "\nThe previous move has been undone.\n" << ANSI_NORMAL;
+
 }
 
 void Command::eaten(const Board& board) const {
@@ -113,8 +141,28 @@ void Command::eaten(const Board& board) const {
 
 }
 
-void Command::replay() const {
-	// TODO
+void Command::replay(Board& board) const {
+	
+	string label = parse::parseArgument(command);
+	vector<string> frames, moves;
+
+	file::inputStrVecFrom(frames, "saves/" + label + "_frames.txt");
+	file::inputStrVecFrom(moves, "saves/" + label + "_moves.txt");
+
+	file::outputVecTo(frames, COM_CURR_MATCH_FRAMES);
+	file::outputVecTo(moves, COM_CURR_MATCH_MOVES);
+
+	cout << ANSI_CYAN << "\nMatch loaded successfully. Replay starting now ......\n" << ANSI_NORMAL;
+
+	for (int i = 0; i < moves.size(); i++) {
+		board = Board(frames.at(i));
+		board.display();
+		cout << ((board.nextTurn == Side::RED) ? ANSI_RED : ANSI_GREEN) << "\n"
+			 << moves.at(i) << ".\n" << ANSI_NORMAL;
+	}
+
+	board = Board(frames.back());
+
 }
 
 void Command::exit() const {

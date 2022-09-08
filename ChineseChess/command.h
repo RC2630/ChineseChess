@@ -41,7 +41,7 @@ private:
 	void load(Board& board) const;
 	void undo(Board& board) const;
 	void eaten(const Board& board) const;
-	void replay() const;
+	void replay(Board& board) const;
 	void exit() const;
 	void restart(Board& board) const;
 	void skip(Board& board) const;

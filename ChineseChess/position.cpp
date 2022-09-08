@@ -17,7 +17,7 @@ Position::Position()
 { }
 
 Position::Position(int col, int row) {
-	if (isValidPosition(col, row)) {
+	if (isValidPosition(col, row) || isEatenPosition(col, row)) {
 		this->col = col;
 		this->row = row;
 	} else {
