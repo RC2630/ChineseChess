@@ -1,6 +1,0 @@
-Red skipped a turn
-Green Horse @ (5, 7) moved to (4, 5)
-Red skipped a turn
-Green Horse @ (4, 5) moved to (3, 3)
-Red Horse @ (2, 1) ate Green Horse @ (3, 3)
-Green skipped a turn

@@ -1,4 +1,0 @@
-Red Cannon @ (8, 3) moved to (8, 7)
-Green Horse @ (8, 10) moved to (7, 8)
-Red Cannon @ (8, 7) ate Green Footman @ (5, 7)
-Green Horse @ (7, 8) ate Red Cannon @ (5, 7)
