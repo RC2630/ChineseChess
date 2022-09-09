@@ -93,7 +93,7 @@ bool StraightLineMover::canMoveTo(Position newPos, const Board& board) const {
 
 		for (int row = smallerRow + 1; row < largerRow; row++) {
 			if (board.getIndexOfPieceAtPos(Position(this->pos.col, row)) != -1) {
-				return false; // car is not penetrative!
+				return false; // straight line movement is not penetrative!
 			}
 		}
 
@@ -106,7 +106,7 @@ bool StraightLineMover::canMoveTo(Position newPos, const Board& board) const {
 
 		for (int col = smallerCol + 1; col < largerCol; col++) {
 			if (board.getIndexOfPieceAtPos(Position(col, this->pos.row)) != -1) {
-				return false; // car is not penetrative!
+				return false; // straight line movement is not penetrative!
 			}
 		}
 
@@ -264,7 +264,7 @@ bool Cannon::canEat(const Piece& enemy, const Board& board) const {
 			}
 		}
 
-		return obstacleCount == 1;
+		return obstacleCount == 1; // check for exactly 1 cannon frame
 
 	} else if (this->pos.row == enemy.pos.row) {
 
@@ -278,7 +278,7 @@ bool Cannon::canEat(const Piece& enemy, const Board& board) const {
 			}
 		}
 
-		return obstacleCount == 1;
+		return obstacleCount == 1; // check for exactly 1 cannon frame
 
 	} else {
 

@@ -1,0 +1,3 @@
+Red Horse @ (8, 1) ate Green Horse @ (8, 10)
+Green Guard @ (6, 10) moved to (5, 9)
+Red Horse @ (8, 10) ate Green General @ (5, 10)
