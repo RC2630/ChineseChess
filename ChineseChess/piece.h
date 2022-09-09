@@ -16,6 +16,9 @@ enum struct Side {
 // represents a chinese chess piece
 struct Piece {
 
+	static bool isWithinPalace(Position pos, Side side);
+	static bool onOtherSideOfRiver(Position pos, Side side);
+
 	Position pos;
 	string name;
 	wchar_t chineseNameRed;
@@ -35,9 +38,16 @@ struct Piece {
 
 };
 
-struct Car : public Piece {
-	Car(Position pos, Side side);
+// used for the Car and Cannon pieces (because they both move the same way, i.e. in a straight line)
+struct StraightLineMover : public Piece {
+	StraightLineMover(Position pos, Side side, const string& name, wchar_t cNameRed, wchar_t cNameGreen);
 	bool canMoveTo(Position newPos, const Board& board) const override;
+};
+
+// ALL STRUCTS FROM THIS POINT ONWARDS REPRESENT CONCRETE CHINESE CHESS PIECES
+
+struct Car : public StraightLineMover {
+	Car(Position pos, Side side);
 	bool canEat(const Piece& enemy, const Board& board) const override;
 };
 
@@ -65,9 +75,8 @@ struct General : public Piece {
 	bool canEat(const Piece& enemy, const Board& board) const override;
 };
 
-struct Cannon : public Piece {
+struct Cannon : public StraightLineMover {
 	Cannon(Position pos, Side side);
-	bool canMoveTo(Position newPos, const Board& board) const override;
 	bool canEat(const Piece& enemy, const Board& board) const override;
 };
 
