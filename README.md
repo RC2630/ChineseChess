@@ -8,4 +8,4 @@ Features:
   - colourful board display in console
   - every move is checked for validity
   - easy to use console user interface
-  - special commands that allow actions such as saving and loading games, skipping a turn, inspecting eaten pieces, etc.
+  - special commands for actions such as saving and loading games, skipping a turn, inspecting eaten pieces, etc.
