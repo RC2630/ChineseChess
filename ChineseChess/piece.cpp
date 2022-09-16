@@ -86,6 +86,10 @@ StraightLineMover::StraightLineMover(Position pos, Side side, const string& name
 
 bool StraightLineMover::canMoveTo(Position newPos, const Board& board) const {
 
+	if (this->pos == newPos) {
+		return false; // spinning on the spot will not be tolerated!
+	}
+
 	if (this->pos.col == newPos.col) {
 
 		int smallerRow = min(this->pos.row, newPos.row);
@@ -213,6 +217,11 @@ bool General::canMoveTo(Position newPos, const Board& board) const {
 }
 
 bool General::canEat(const Piece& enemy, const Board& board) const {
+
+	// prevent general suicide
+	if (this->pos == enemy.pos) {
+		return false;
+	}
 
 	// regular case
 	if (this->canMoveTo(enemy.pos, board)) {
