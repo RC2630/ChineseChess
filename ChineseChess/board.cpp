@@ -111,6 +111,13 @@ void Board::displayRiver() {
 	}
 	cout << ANSI_NORMAL << " |\n    ";
 
+    // buffer line
+    cout << "|";
+    for (int x = 1; x < CELL_WIDTH * Position::NUM_COLS; x++) {
+        cout << " ";
+    }
+    cout << "|\n    ";
+
 }
 
 void Board::display(bool displayProtectedness) const {
